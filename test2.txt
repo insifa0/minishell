@@ -1,16 +1,0 @@
-[1;32m/home/insifa/minishell[0m [?2004hminishell> 
-[?2004l[1;32m/home/insifa/minishell[0m [?2004hminishell> aaaa^C[?2004l
-minishell> [?2004h
-[?2004l[1;32m/home/insifa/minishell[0m [?2004hminishell> 
-[?2004l[1;32m/home/insifa/minishell[0m [?2004hminishell> ls
-[?2004lMakefile
-README.MD
-include
-minishell
-obj
-scr
-test.txt
-test2.txt
-[1;32m/home/insifa/minishell[0m [?2004hminishell> alexit
-[?2004l[1;32m/home/insifa/minishell[0m [?2004hminishell> exit
-[?2004l

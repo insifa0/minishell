@@ -1,11 +1,13 @@
 #include "shell.h"
 #include <signal.h>
+#include <readline/readline.h>
 #include <readline/history.h>
 
 void handle_sigint(int sig) {
     (void)sig;
-    printf("\nminishell> ");
-    fflush(stdout);
+    write(1, "\n", 1);
+    rl_on_new_line();
+    rl_replace_line("", 0);
 }
 
 void setup_signals(void){
@@ -37,15 +39,14 @@ int main(void) {
     while (1)
     {
         char cwd[1024];
+        char prompt[1100];
         getcwd(cwd, sizeof(cwd));
-        printf("\033[1;32m%s\033[0m ", cwd);
+        sprintf(prompt, "\033[1;32m%s\033[0m minishell> ", cwd);
         // 1. Kullanıcıdan girdiyi al (Silinen kısım buydu)
-        line = readline("minishell> ");
+        line = readline(prompt);
         
         // 2. Ctrl+D (EOF) kontrolü
-        if (!line) {
-            break;
-        }
+        if (!line) break;
 
         if(line[0] != '\0'){
             add_history(line);

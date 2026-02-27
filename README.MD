@@ -1,61 +1,71 @@
-# 🐚 Minishell: A Simplified Unix Shell
+# 🐚 Minishell: Advanced Unix Shell Implementation
 
-Bu proje, günlük hayatta kullanılan **Bash/Zsh** gibi shell yapılarının temel mantığını anlamak için sıfırdan **C dili** ile geliştirilmiş bir öğrenme projesidir. Unix süreç modelini, sistem çağrılarını ve süreçler arası iletişimi (IPC) derinlemesine pratik eder.
+Bu proje, günlük hayatta kullanılan **Bash/Zsh** gibi shell yapılarının temel mantığını anlamak için sıfırdan **C dili** ile geliştirilmiş ileri seviye bir sistem programlama projesidir. Unix süreç modelini, sistem çağrılarını ve süreçler arası iletişimi (IPC) derinlemesine pratik eder.
 
 ## 📺 Demo
-Projenin temel özelliklerini aşağıda görebilirsiniz:
+Projenin tüm yeteneklerini (Pipes, Redirection, Signals) aşağıda görebilirsiniz:
 
 ![Minishell Demo](minishell_GIF.gif)
 
 ## 🚀 Özellikler
 
 | Özellik | Açıklama |
-| --- | --- |
-| **REPL Döngüsü** | Kullanıcıdan komut alıp, işleyip, sonuç döndüren döngü yapısı. |
-| **Process Model** | `fork()`, `execvp()` ve `waitpid()` ile harici programları çalıştırma. |
-| **Pipeline** | `pipe()` ve `dup2()` kullanarak komutları birbirine bağlama (`ls | grep .c`). |
+| :--- | :--- |
+| **REPL Döngüsü** | Kullanıcıdan komut alıp, işleyip, sonuç döndüren sonsuz döngü yapısı. |
+| **Process Model** | `fork()`, `execvp()` ve `waitpid()` ile izole süreç yönetimi. |
+| **Pipeline (|)** | `pipe()` ve `dup2()` kullanarak komut zincirleme (`ls \| grep .c \| wc -l`). |
+| **Redirection (>)** | Komut çıktılarını dosyalara yönlendirme (`ls > liste.txt`). |
+| **Backgrounding (&)** | Süreçleri arka planda (asenkron) çalıştırma desteği. |
+| **History** | `readline` kütüphanesi ile yukarı/aşağı tuşlarıyla komut geçmişine erişim. |
 | **Built-in Komutlar** | `cd`, `exit`, `export`, `env` gibi kabuğa gömülü fonksiyonlar. |
-| **Signal Handling** | `Ctrl+C` sinyalini yakalayarak shell'in kapanmasını önleme. |
-| **Dinamik Prompt** | Mevcut çalışma dizinini (CWD) gösteren renkli ve interaktif arayüz. |
+| **Signal Handling** | `Ctrl+C` sinyalini yakalayarak shell'in kararlılığını koruma. |
+| **Dinamik Prompt** | Renkli, interaktif ve anlık çalışma dizinini (CWD) gösteren prompt. |
 
 ## 🏗️ Mimari Yapı
 
+
+
 Proje, veriyi girdi olarak alıp işleyene kadar şu aşamalardan geçer:
 
-1. **Lexer (Tokenizer):** Girdiyi anlamlı kelime parçalarına ayırır.
-2. **Parser/Handler:** Komutun built-in mi, pipe mı yoksa standart bir komut mu olduğunu belirler.
-3. **Executor:** Uygun sistem çağrılarını tetikleyerek işlemi gerçekleştirir.
+1. **Lexer (Tokenizer):** Girdiyi anlamlı kelime parçalarına ve operatörlere (`|`, `>`, `&`) ayırır.
+2. **Parser/Handler:** Komutun built-in mi, pipe mı yoksa yönlendirme mi içerdiğini belirler.
+3. **Executor:** Çocuk süreçler oluşturur ve `dup2` ile dosya tanımlayıcılarını yönlendirerek işlemi icra eder.
 
 ## 🛠️ Kurulum ve Çalıştırma
 
 Projenin derlenmesi için `gcc` ve `libreadline` kütüphanesi gereklidir.
 
-1. **Projeyi derleyin:**
+1. **Bağımlılıkları Yükleyin (Ubuntu/Debian):**
 ```bash
-make
+sudo apt-get install libreadline-dev
 
 ```
 
+2. **Projeyi Derleyin:**
 
-2. **Shell'i başlatın:**
+```bash
+make re
+
+```
+
+3. **Shell'i Başlatın:**
+
 ```bash
 ./minishell
 
 ```
 
-
-
 ## 📚 Kullanılan Sistem Çağrıları
 
-* `fork`, `execvp`, `waitpid`
-* `pipe`, `dup2`
-* `chdir`, `getcwd`
-* `signal`, `sigaction`
+* **Süreç Yönetimi:** `fork`, `execvp`, `waitpid`, `exit`
+* **Girdi/Çıktı & IPC:** `pipe`, `dup2`, `open`, `close`
+* **Dizin ve Ortam:** `chdir`, `getcwd`, `setenv`, `putenv`
+* **Sinyaller:** `signal`, `sigaction`
 
 ## 🗺️ Gelecek Özellikler (Roadmap)
 
-* [ ] **Redirection:** `>`, `>>`, `<` operatörleri ile dosya yönlendirme.
-* [ ] **Backgrounding:** `&` operatörü ile süreçleri arka planda çalıştırma.
-* [ ] **History:** Geçmiş komutlara erişim desteği.
+* [ ] **Input Redirection:** `<` operatörü ile dosyadan okuma desteği.
+* [ ] **Append Redirection:** `>>` operatörü ile dosyanın sonuna ekleme yapma.
+* [ ] **Logical Operators:** `&&` ve `||` ile koşullu komut çalıştırma.
 
 ---

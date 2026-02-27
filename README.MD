@@ -2,6 +2,11 @@
 
 Bu proje, günlük hayatta kullanılan **Bash/Zsh** gibi shell yapılarının temel mantığını anlamak için sıfırdan **C dili** ile geliştirilmiş bir öğrenme projesidir. Unix süreç modelini, sistem çağrılarını ve süreçler arası iletişimi (IPC) derinlemesine pratik eder.
 
+## 📺 Demo
+Projenin temel özelliklerini aşağıda görebilirsiniz:
+
+![Minishell Demo](minishell_GIF.gif)
+
 ## 🚀 Özellikler
 
 | Özellik | Açıklama |

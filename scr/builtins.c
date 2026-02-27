@@ -20,5 +20,5 @@ int handle_builtins(char **args) {
         return 1; // Komut çalıştırıldı
     }
 
-    return 0; // Built-in değil, external bir komut
+    return 0; // Built-in değil, external komut
 }

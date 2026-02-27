@@ -1,5 +1,19 @@
 #include "shell.h"
+#include <signal.h>
+
+void handle_sigint(int sig) {
+    (void)sig;
+    printf("\nminishell> ");
+    fflush(stdout);
+}
+
+void setup_signals(void){
+    signal(SIGINT, handle_sigint);
+    signal(SIGTSTP, SIG_IGN);
+}
+
 int main(void) {
+    setup_signals();
     char *line;
 
     while (1)
@@ -45,3 +59,4 @@ int main(void) {
     printf("exit\n");
     return 0;
 }
+

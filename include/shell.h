@@ -14,5 +14,6 @@ char **tokenize(char *line);
 int handle_builtins(char **args);
 void execute_pipeline(char **args1, char **args2);
 void setup_signals(void);
+extern char **environ; // Sistemin ortam değişkenlerine erişmek için
 
 #endif

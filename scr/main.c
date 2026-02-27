@@ -1,5 +1,6 @@
 #include "shell.h"
 #include <signal.h>
+#include <readline/history.h>
 
 void handle_sigint(int sig) {
     (void)sig;
@@ -44,6 +45,10 @@ int main(void) {
         // 2. Ctrl+D (EOF) kontrolü
         if (!line) {
             break;
+        }
+
+        if(line[0] != '\0'){
+            add_history(line);
         }
 
         char **tokens = tokenize(line);

@@ -6,7 +6,7 @@ LDFLAGS     = -lreadline
 SRC_DIR     = scr
 OBJ_DIR     = obj
 
-SRC_FILES = main.c lexer.c executor.c builtins.c pipeline.c
+SRC_FILES = main.c lexer.c executor.c builtins.c pipeline.c redirection.c
 SRCS        = $(addprefix $(SRC_DIR)/, $(SRC_FILES))
 OBJS        = $(SRCS:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
